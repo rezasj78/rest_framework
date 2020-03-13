@@ -2,6 +2,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import authenticate, get_user_model
+from rest_framework_jwt.settings import api_settings
+
+jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 
 
 class AuthView(APIView):
@@ -23,5 +27,7 @@ class AuthView(APIView):
         username = data.get('username')
         password = data.get('password')
         user = authenticate(username=username, password=password)
-        print(user)
-        return Response({'name': user})
+        payload = jwt_payload_handler(user)
+        token = jwt_encode_handler(payload)
+        print(token)
+        return Response({'name': user.username, 'token': token})

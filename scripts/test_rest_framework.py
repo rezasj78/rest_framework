@@ -6,7 +6,7 @@ ENDPOINT = 'http://127.0.0.1:8000/auth/'
 POST_ENDPOINT = 'http://127.0.0.1:8000/api/status/'
 
 user = {
-    'username': 'rezsj78',
+    'username': 'rezasj78',
     'password': 'sherlock761'
 }
 
