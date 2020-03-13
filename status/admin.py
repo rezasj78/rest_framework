@@ -5,7 +5,7 @@ from .forms import StatusForm
 
 @admin.register(StatusModel)
 class StatusAdmin(admin.ModelAdmin):
-    list_display = ['user', '__str__', 'id', 'img']
+    list_display = ['id','user', '__str__',  'img']
     form = StatusForm
 
 

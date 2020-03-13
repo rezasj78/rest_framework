@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 def upload_to_image(instance, filename):
-    return 'status/{filename}'.format(user=instance, filename=filename)
+    return 'status/{user}/{filename}'.format(user=instance, filename=filename)
 
 
 class StatusQuerySet(models.QuerySet):
@@ -18,7 +18,7 @@ class StatusManager(models.Manager):
 class Status(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField(null=True, blank=True)
-    img = models.ImageField(upload_to='media/', null=True, blank=True)
+    img = models.ImageField(upload_to=upload_to_image, null=True, blank=True)
     updated = models.DateTimeField(auto_now=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
