@@ -37,7 +37,6 @@ class StatusApiDetailView(mixins.UpdateModelMixin, mixins.DestroyModelMixin, gen
         lookup_url_kwarg = self.lookup_url_kwarg or self.lookup_field
         filter_kwargs = {self.lookup_field: self.kwargs[lookup_url_kwarg]}
         print(self.kwargs[lookup_url_kwarg])
-        print(self.request.user)
         obj = get_object_or_404(queryset, **filter_kwargs)
 
         # May raise a permission denied
@@ -54,6 +53,7 @@ class StatusApiListCreateView(mixins.CreateModelMixin, generics.ListAPIView):
 
     def get_queryset(self):
         print(self.request.user)
+        print(self.request.user.is_authenticated)
         qs = Status.objects.all()
         return qs
 
