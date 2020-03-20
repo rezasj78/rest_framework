@@ -4,6 +4,7 @@ import os
 
 ENDPOINT = 'http://127.0.0.1:8000/auth/'
 POST_ENDPOINT = 'http://127.0.0.1:8000/api/status/'
+CREATE_ENDPOINT = ENDPOINT + 'register/'
 
 user = {
     "username": "rezasj78",
@@ -12,18 +13,23 @@ user = {
 
 headers_1 = {
     'Content-type': 'application/json',
-    # 'Authentication': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJ1c2VybmFtZSI6InJlemFzajc4IiwiZXhwIjoxNTg0MTg3Mzc4LCJlbWFpbCI6InNhaHJhZWlhbnJlemFAZ21haWwuY29tIiwib3JpZ19pYXQiOjE1ODQxODcwNzh9.17mKBiZ7euqBGbcK9brlgbq4uJ6_41jZOi5Srwg6_gw'
 }
 
-res = requests.post(ENDPOINT, data=json.dumps(user), headers=headers_1)
-print(res.status_code)
-print(res.text)
-token = res.json()['token']
+file = open('token.json', 'rb')
+token = json.load(file)['token']
+print(token)
 
 headers_2 = {
     "Content-type": "application/json",
-    'Authorization': 'JWT ' + token
+    # 'Authorization': 'JWT ' + token
 }
 
-res2 = requests.post(ENDPOINT, data=json.dumps(user), headers=headers_2)
+
+json_data = {
+    'user': 'reza2',
+    'password': 'sherlock761',
+    'password2': 'sherlock761',
+    'email': 'sahraeianreza3rd@gmail.com'
+}
+res2 = requests.post(CREATE_ENDPOINT, data=json.dumps(json_data), headers=headers_2)
 print(res2.text)
